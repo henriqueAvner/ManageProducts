@@ -105,6 +105,7 @@ export const validateCsvService = async (csvFile: string) => {
         }
 
         //ENVIO DE PACOTE AO INVÉS DE PRODUTO:
+
         //baseando-se no pacote enviado na requisição (por exemplo 1020), preciso achar os produtos que compõem esse pacote:
 
         const packOfProducts = allPacks.filter((pack) => pack.pack_id === product.product_code);//achando o produtoo que é um pack através da requisição
@@ -148,12 +149,7 @@ export const validateCsvService = async (csvFile: string) => {
                 }
             });
         }
-
-
-
-
     }
-
     return [result, resultPack];
 }
 
