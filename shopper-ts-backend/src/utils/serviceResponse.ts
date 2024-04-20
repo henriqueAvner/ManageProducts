@@ -1,0 +1,12 @@
+const serviceResponse = {
+    SUCCESS: 'SUCCESS',
+    INVALID_DATA: 'INVALID_DATA',
+    CREATED: 'CREATED',
+    NOT_FOUND: 'NOT_FOUND',
+    BAD_REQUEST: 'BAD_REQUEST',
+    UNPROCESSABLE_ENTITY: 'UNPROCESSABLE_ENTITY',
+    NO_CONTENT: 'NO_CONTENT',
+};
+
+
+export default serviceResponse;

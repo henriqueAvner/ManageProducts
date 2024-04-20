@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1713482170889" clover="3.2.0">
+  <project timestamp="1713482170889" name="All files">
+    <metrics statements="15" coveredstatements="14" conditionals="10" coveredconditionals="8" methods="4" coveredmethods="3" elements="29" coveredelements="25" complexity="0" loc="15" ncloc="15" packages="3" files="3" classes="3"/>
+    <package name="src">
+      <metrics statements="3" coveredstatements="3" conditionals="8" coveredconditionals="8" methods="0" coveredmethods="0"/>
+      <file name="db.ts" path="/home/avnerh/z-studies/tecnic_test_study/shopper-ts-backend/src/db.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="8" coveredconditionals="8" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.models">
+      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+      <file name="products.model.ts" path="/home/avnerh/z-studies/tecnic_test_study/shopper-ts-backend/src/models/products.model.ts">
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.utils">
+      <metrics statements="4" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="zodSchema.ts" path="/home/avnerh/z-studies/tecnic_test_study/shopper-ts-backend/src/utils/zodSchema.ts">
+        <metrics statements="4" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="6" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="11" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
