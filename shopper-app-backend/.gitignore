@@ -1,3 +1,5 @@
 node_modules/
 .gitiignore
 dist/
+uploads/*
+!uploads/
