@@ -13,3 +13,15 @@ app.use(updateRouter)
 const PORT = 3003
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+
+
+/*
+1010 - 9,89
+
+1010 - 8
+
+24: 4.10
+26:6
+
+
+*/

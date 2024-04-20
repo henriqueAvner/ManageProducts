@@ -117,24 +117,41 @@ export const validateCsvService = async (csvFile: string) => {
 
         // se a gente achou produtos que compoem o pack enviado na requisição (productsInPack), altera-se o valor do produto, baseado na porcentagem de mudança do valor do pack atual para o novo valor do pack vindo na requisição:
         if (productsInPack.length > 0) {
-            productsInPack.forEach((productInPack) => {
-                const percentage = ((product.new_price / (packInProduct?.sales_price ?? 1)) - 1) * 100;
-                const aument = Number(productInPack?.sales_price ?? 0) * (percentage / 100);
-                const newPrice = parseFloat((Number(productInPack?.sales_price ?? 0) + aument).toFixed(2));
+            // Calcula a porcentagem de alteração com base no novo preço do pacote e no preço de venda atual do pacote
+            const percentage = ((product.new_price / (packInProduct?.sales_price ?? 1)) - 1) * 100;
 
-                result.push({
-                    status: 'success',
-                    pack: {
-                        code: productInPack?.code ?? 0,
-                        name: productInPack?.name ?? '',
-                        quantity: productInPack?.quantity, // deve retornar a quantidade do produto no pack se existir
-                        cost_price: productInPack?.cost_price ?? 0,
-                        sales_price: productInPack?.sales_price ?? 0,
-                        new_price: newPrice //deve retornar o novo preço do produto com a lógica implementada, da maneira correta
-                    },
-                });
+            // Calcula o aumento total com base na porcentagem de alteração
+            const totalIncrease = (packInProduct?.sales_price ?? 0) * (percentage / 100);
+
+            // Calcula o aumento por produto
+            const increasePerProduct = totalIncrease / productsInPack.length;
+
+            productsInPack.forEach((productInPack) => {
+                // Encontra o item do pacote específico para o produto atual
+                if (productInPack === undefined) return;
+                const packItem = allPacks.find(item => item.product_id === productInPack.code);
+                if (packItem) {
+                    // Calcula o novo preço do produto com base no aumento
+                    const newPrice = parseFloat((Number(productInPack.sales_price) + Number(increasePerProduct)).toFixed(2));
+
+                    result.push({
+                        status: 'success',
+                        product: {
+                            code: productInPack.code,
+                            name: productInPack.name,
+                            quantity: packItem.qty, // Atualiza para refletir a quantidade do produto no pacote
+                            cost_price: productInPack.cost_price,
+                            sales_price: productInPack.sales_price,
+                            new_price: newPrice, // Corrige o problema de arredondamento
+                        },
+                    });
+                }
             });
         }
+
+
+
+
     }
 
     return [result, resultPack];

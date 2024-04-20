@@ -8,7 +8,7 @@ const updateRouter = Router()
 
 const upload = multer({ storage: storage })
 
-updateRouter.post('/updatecsv', upload.single('file'), (req: Request, res: Response) => updatedProducts(req, res))
+updateRouter.put('/updatecsv', upload.single('file'), (req: Request, res: Response) => updatedProducts(req, res))
 
 
 
