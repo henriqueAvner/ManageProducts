@@ -1,0 +1,23 @@
+.box {
+
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 100px;
+    width: 900px;
+    height: 400px;
+    background-color: #060837;
+    box-shadow: 0 0 10px 2px #052468;
+}
+
+
+/*
+cores principais
+
+#07a776 - verde
+
+#060837 - azul
+
+*/
