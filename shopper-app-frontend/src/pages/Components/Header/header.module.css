@@ -1,0 +1,23 @@
+.title {
+    position: absolute;
+    top: 120px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    width: 93.9%;
+}
+
+
+
+
+/*
+cores principais
+
+#07a776 - verde
+
+#060837 - azul
+
+*/
