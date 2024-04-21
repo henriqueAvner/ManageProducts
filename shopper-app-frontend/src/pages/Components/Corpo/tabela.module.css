@@ -1,0 +1,59 @@
+.table {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 0px 10px 0 0;
+    left: 1px;
+}
+
+table>thead>tr>th {
+    background-color: #07a776;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+
+}
+
+table>tbody>tr>td {
+    background-color: rgb(243, 239, 239);
+    color: #060837;
+    padding: 4px 0px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    border-radius: 5px;
+
+}
+
+h2 {
+    color: #d85d0b;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+
+}
+
+
+ul li {
+    padding: 5px;
+    background-color: #060837;
+    color: #d85d0b;
+
+}
+
+/*
+cores principais
+
+#07a776 - verde
+
+#060837 - azul
+
+*/
