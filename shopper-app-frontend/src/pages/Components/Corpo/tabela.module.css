@@ -49,6 +49,14 @@ ul li {
 
 }
 
+.waiting {
+    color: #f9fcfb;
+    font-size: 1.25em;
+    font-weight: 700;
+    margin: 10px 200px;
+
+}
+
 /*
 cores principais
 

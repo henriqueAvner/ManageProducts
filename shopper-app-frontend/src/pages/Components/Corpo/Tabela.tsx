@@ -12,7 +12,7 @@ function extractItemDetails(item: Product | Pack) {
 export function Tabela({ products, errors }:
 { products: ProductOrPack[] | null, errors: string[] | null }) {
   if (!products && !errors) {
-    return <div>Aguardando envio de arquivo</div>;
+    return <div className={ styles.waiting }>Aguardando envio de arquivo...</div>;
   }
 
   return (

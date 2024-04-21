@@ -9,6 +9,23 @@
 
 }
 
+.main .message {
+    color: #07a776;
+    font-size: 1.25em;
+    font-weight: 700;
+    margin: 10px 200px;
+
+}
+
+.loading {
+    color: #f9fcfb;
+    font-size: 1.25em;
+    font-weight: 700;
+    margin: 10px 200px;
+
+}
+
+
 .button {
     background-color: #07a776;
     border: none;
