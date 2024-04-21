@@ -1,3 +1,14 @@
+.main {
+
+    width: 100%;
+    height: 100%;
+    background-color: #060837;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+}
+
 .button {
     background-color: #07a776;
     border: none;
@@ -6,10 +17,24 @@
     padding: 10px;
     text-decoration: none;
     font-size: 20px;
-    margin: 1px 1px;
     cursor: pointer;
     font-size: 1.25em;
     font-weight: 700;
+    margin: 30px 25px 10px 0px;
+}
+
+.buttonDisabled {
+    background-color: #676969;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 20px;
+    cursor: pointer;
+    font-size: 1.25em;
+    font-weight: 700;
+    margin: 30px 25px 10px 0px;
 }
 
 .button:hover {
