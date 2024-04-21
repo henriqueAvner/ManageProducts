@@ -120,9 +120,13 @@ export const validateCsvService = async (csvFile: string) => {
         if (productsInPack.length > 0) {
             // Calcula a porcentagem de alteração com base no novo preço do pacote e no preço de venda atual do pacote
             const percentage = ((product.new_price / (packInProduct?.sales_price ?? 1)) - 1) * 100;
+            console.log(percentage);
+
 
             // Calcula o aumento total com base na porcentagem de alteração
-            const totalIncrease = (packInProduct?.sales_price ?? 0) * (percentage / 100);
+            const totalIncrease = product.new_price - (packInProduct?.sales_price ?? 0);
+            console.log(totalIncrease);
+
 
             // Calcula o aumento por produto
             const increasePerProduct = totalIncrease / productsInPack.length;
@@ -132,9 +136,8 @@ export const validateCsvService = async (csvFile: string) => {
                 if (productInPack === undefined) return;
                 const packItem = allPacks.find(item => item.product_id === productInPack.code);
                 if (packItem) {
-                    // Calcula o novo preço do produto com base no aumento
+                    // Calcula o novo preço do produto com base no aumento aplicado ao preço antigo do produto
                     const newPrice = parseFloat((Number(productInPack.sales_price) + Number(increasePerProduct)).toFixed(2));
-
                     result.push({
                         status: 'success',
                         product: {
@@ -149,6 +152,8 @@ export const validateCsvService = async (csvFile: string) => {
                 }
             });
         }
+
+
     }
     return [result, resultPack];
 }
