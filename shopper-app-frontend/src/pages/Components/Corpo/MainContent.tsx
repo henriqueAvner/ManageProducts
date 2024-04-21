@@ -19,6 +19,8 @@ export function MainContent() {
 
   const [updateMessage, setUpdateMessage] = useState<string | null>(null);
 
+  const [isLoading, setIsLoading] = useState<boolean | null>(null);
+
   async function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.files) {
       setFile(event.target.files[0]);
@@ -42,6 +44,9 @@ export function MainContent() {
   };
 
   async function handleValidation() {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
     if (!file) return;
     const formData = new FormData();
     formData.append('file', file);
@@ -62,6 +67,7 @@ export function MainContent() {
         }
         return `Status: ${errorItem.status}, `;
       }));
+      setIsLoading(true);
       setIsValid(true);
     } catch (error) {
       console.error('Erro ao validar o arquivo:', error);
@@ -84,7 +90,6 @@ export function MainContent() {
       }
 
       const data = await response.json();
-      console.log(data);
 
       // Verifica se a resposta é de sucesso
       if (data.status === 'SUCCESS') {
@@ -94,6 +99,9 @@ export function MainContent() {
         // Aqui você pode adicionar uma lógica para atualizar a UI com a mensagem de sucesso
         // Por exemplo, mostrar um modal ou uma notificação
         setUpdateMessage(data.data.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       } else {
         // Caso contrário, trata-se como um erro
         throw new Error(data.data.message || 'Erro desconhecido');
@@ -103,6 +111,15 @@ export function MainContent() {
       // Atualiza o estado com a mensagem de erro
       setMistake([(error as { message: string }).message]);
     }
+  }
+  function renderContent() {
+    if (isLoading) {
+      return <div className={ styles.loading }>Carregando...</div>;
+    }
+    if (updateMessage) {
+      return <div className={ styles.message }>{updateMessage}</div>;
+    }
+    return <Tabela products={ validatedProducts } errors={ mistake } />;
   }
 
   return (
@@ -122,14 +139,10 @@ export function MainContent() {
           Validar Arquivo
         </button>
       </div>
-      {updateMessage ? (
-        <div>{updateMessage}</div>
-      ) : (
-        <Tabela products={ validatedProducts } errors={ mistake } />
-      )}
+      {renderContent()}
       <button
-        className={ mistake?.some((miss: string) => miss) || !isValid
-          ? styles.buttonDisabled : styles.button }
+        className={ mistake?.some((miss: string) => miss)
+          || !isValid ? styles.buttonDisabled : styles.button }
         disabled={ !isValid }
         onClick={ handleUpdate }
       >
