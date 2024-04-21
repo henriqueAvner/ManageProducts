@@ -30,7 +30,7 @@ export function Tabela({ products, errors }:
 
       {products && products.length > 0 && (
         <div className={ styles.table }>
-          <h3>Tabela para alteração de preços</h3>
+          <h3>Os seguintes preços serão atualizados:</h3>
           <table className={ styles.table }>
             <thead>
               <tr>
@@ -50,9 +50,18 @@ export function Tabela({ products, errors }:
                   <tr key={ code }>
                     <td>{code}</td>
                     <td>{name}</td>
-                    <td>{cost_price}</td>
-                    <td>{sales_price}</td>
-                    <td>{new_price}</td>
+                    <td>
+                      R$
+                      {cost_price}
+                    </td>
+                    <td>
+                      R$
+                      {sales_price}
+                    </td>
+                    <td>
+                      R$
+                      {new_price.toFixed(2)}
+                    </td>
                   </tr>
                 );
               })}

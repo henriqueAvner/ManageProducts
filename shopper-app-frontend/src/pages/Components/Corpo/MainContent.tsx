@@ -17,6 +17,8 @@ export function MainContent() {
 
   const [isValid, setIsValid] = useState<boolean | null>(null);
 
+  const [updateMessage, setUpdateMessage] = useState<string | null>(null);
+
   async function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.files) {
       setFile(event.target.files[0]);
@@ -26,7 +28,8 @@ export function MainContent() {
     const flattenedResponse = response.flat();
 
     const products = flattenedResponse
-      .filter((item: Product | Pack) => item.status === 'success' && 'product' in item);
+      .filter((item: Product | Pack) => item
+        .status === 'success' && 'product' in item && item.product.code < 999);
 
     const packs = flattenedResponse
       .filter((item: Product | Pack) => item
@@ -35,42 +38,73 @@ export function MainContent() {
     const errors = flattenedResponse
       .filter((item: Product | Pack) => item.status === 'error');
 
-    return { items: products.length > 0 ? products : packs, errors };
+    return { items: [...products, ...packs], errors };
   };
 
   async function handleValidation() {
     if (!file) return;
-
     const formData = new FormData();
     formData.append('file', file);
-
     try {
       const response = await fetch('http://localhost:3003/readcsv', {
         method: 'POST',
         body: formData,
       });
-
       const data = await response.json();
-      console.log(data);
       if (typeof data === 'object' && 'message' in data) {
         setMistake([data.message]);
       }
       const { items, errors } = processResponse(data);
       setValidatedProducts(items);
       setMistake(errors.map((errorItem) => {
-      // Verificando se 'message' existe no objeto de erro
         if ('error' in errorItem) {
           return errorItem.error as string;
         }
-        // Caso contrário, retorna apenas o status
         return `Status: ${errorItem.status}, `;
       }));
-
       setIsValid(true);
     } catch (error) {
       console.error('Erro ao validar o arquivo:', error);
     }
   }
+  async function handleUpdate() {
+    if (!file) return; // Certifique-se de que o arquivo está disponível
+
+    const formData = new FormData();
+    formData.append('file', file); // Adicione o arquivo ao formData
+
+    try {
+      const response = await fetch('http://localhost:3003/updatecsv', {
+        method: 'PUT',
+        body: formData, // Use formData para enviar o arquivo
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao atualizar os produtos');
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      // Verifica se a resposta é de sucesso
+      if (data.status === 'SUCCESS') {
+        // Limpa os erros e atualiza a mensagem de sucesso
+        setMistake([]);
+        setIsValid(true);
+        // Aqui você pode adicionar uma lógica para atualizar a UI com a mensagem de sucesso
+        // Por exemplo, mostrar um modal ou uma notificação
+        setUpdateMessage(data.data.message);
+      } else {
+        // Caso contrário, trata-se como um erro
+        throw new Error(data.data.message || 'Erro desconhecido');
+      }
+    } catch (error) {
+      console.error('Erro ao atualizar os produtos:', error);
+      // Atualiza o estado com a mensagem de erro
+      setMistake([(error as { message: string }).message]);
+    }
+  }
+
   return (
     <main className={ styles.main }>
       <div>
@@ -88,10 +122,16 @@ export function MainContent() {
           Validar Arquivo
         </button>
       </div>
-      <Tabela products={ validatedProducts } errors={ mistake } />
+      {updateMessage ? (
+        <div>{updateMessage}</div>
+      ) : (
+        <Tabela products={ validatedProducts } errors={ mistake } />
+      )}
       <button
-        className={ styles.button }
+        className={ mistake?.some((miss: string) => miss) || !isValid
+          ? styles.buttonDisabled : styles.button }
         disabled={ !isValid }
+        onClick={ handleUpdate }
       >
         Atualizar Produtos
       </button>
