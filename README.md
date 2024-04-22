@@ -22,6 +22,7 @@ Primeiro, clone o repositório para a sua máquina usando o link gerado aqui.
     ```bash
     npm run start
     ```
+### Observação:
     - :pushpin: Para rodar o projeto desta forma, obrigatoriamente você deve ter o `node.js` instalado em seu computador da versão 18 para cima.
 
 
