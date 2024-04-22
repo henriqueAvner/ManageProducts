@@ -19,11 +19,8 @@ Primeiro, clone o repositório para a sua máquina usando o link gerado aqui.
 
 
 ## 3. Execute o Projeto
-
-- Lembre-se de usar o prefixo `env $(cat .env)` ao rodar os comandos localmente para carregar as variáveis de ambiente do arquivo `.env`. Por exemplo:
-
     ```bash
-    colocar o comando de execução da aplicação aqui
+    npm run start
     ```
     - :pushpin: Para rodar o projeto desta forma, obrigatoriamente você deve ter o `node.js` instalado em seu computador da versão 18 para cima.
 
