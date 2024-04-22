@@ -54,6 +54,14 @@ export const validateCsvService = async (csvFile: string) => {
         }
 
         //se for enviado um pacote na requisição, mas nao foi enviado nenhum produto que pertence a ele, retorna um erro:
+        const pacoteenviado = allPacks.find((item: PackType) => item.pack_id === product.product_code);
+        const algumprodutdodopacoteenviado = csvFormater.find((item: Product) => item.product_code === pacoteenviado?.product_id);
+        // console.log(algumprodutdodopacoteenviado);
+        if (pacoteenviado && !algumprodutdodopacoteenviado) {
+            result.push({ status: 'error', error: `O pacote ${product.product_code} foi enviado, mas não há nenhum produto dele na requisição!` });
+            continue;
+        }
+
 
 
 
