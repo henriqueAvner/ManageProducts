@@ -1,13 +1,14 @@
-export type Product = {
-    product_code: number;
-    new_price: number;
-}
-
 
 export type ProductsType = {
     products: Product[];
 
 }
+
+export type Product = {
+    product_code: number;
+    new_price: number;
+}
+
 
 export type NewValueType = {
     code: number;

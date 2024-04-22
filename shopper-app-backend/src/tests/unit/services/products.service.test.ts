@@ -1,6 +1,7 @@
-import { allProducts } from '../../../services/products.service';
-import productsModel from '../../../models/products.model';
-import serviceResponse from '../../../utils/serviceResponse';
+import productsModel from "../../../models/products.model";
+import { allProducts } from "../../../services/products.service";
+import serviceResponse from "../../../utils/serviceResponse";
+import { validateCsv } from "../../../controllers/validateCsv.controller";
 
 describe('SERVICE allProducts', () => {
     it('Deve retornar todos os produtos', async () => {

@@ -51,7 +51,7 @@ export function MainContent() {
     const formData = new FormData();
     formData.append('file', file);
     try {
-      const response = await fetch('http://localhost:3003/readcsv', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/readcsv`, {
         method: 'POST',
         body: formData,
       });
@@ -80,7 +80,7 @@ export function MainContent() {
     formData.append('file', file); // Adicione o arquivo ao formData
 
     try {
-      const response = await fetch('http://localhost:3003/updatecsv', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/updatecsv`, {
         method: 'PUT',
         body: formData, // Use formData para enviar o arquivo
       });
