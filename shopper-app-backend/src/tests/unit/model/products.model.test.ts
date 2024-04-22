@@ -1,13 +1,13 @@
-import productsModel from '../../models/products.model';
-import connection from '../../db';
+import productsModel from '../../../models/products.model';
+import connection from '../../../db';
 
 // Mock the entire 'db' module
-jest.mock('../../db');
+jest.mock('../../../db');
 
 const mockExecute = connection.execute as jest.Mock;
 
-describe('Verify Products Model', () => {
-    it('Should return all data from database', async () => {
+describe('MODEL allProducts', () => {
+    it('Deve retornar todos os dados da tabela', async () => {
         mockExecute.mockResolvedValue([
             [
                 { id: 1, name: 'Product 1' },
@@ -26,22 +26,7 @@ describe('Verify Products Model', () => {
         expect(result[0]).toEqual({ id: 1, name: 'Product 1' });
         expect(result[1]).toEqual({ id: 2, name: 'Product 2' });
     });
-
-    it('Should return a data based on a code', async () => {
-        mockExecute.mockResolvedValueOnce(
-            [
-                [{ id: 1, name: 'Product 1' }]
-            ]
-
-        );
-
-        const curr_product = await productsModel.findProduct(1);
-
-        expect(mockExecute).toHaveBeenCalledWith('SELECT * FROM products WHERE code = ?', [1]);
-        expect(curr_product).toHaveLength(1);
-        expect(curr_product).toEqual([{ id: 1, name: 'Product 1' }]);
-    });
-    it('Should call a update function with code and a new price', async () => {
+    it('Deve chamar a função update para atualizar um produto', async () => {
         mockExecute.mockResolvedValueOnce(
             [
                 [{ id: 1, name: 'Product 1', sales_price: 10 }]

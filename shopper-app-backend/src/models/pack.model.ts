@@ -7,12 +7,6 @@ async function allPacks() {
 
 };
 
-async function findPack(product_id: number) {
-    const [pack] = await connection.execute('SELECT * FROM packs WHERE product_id = ?', [product_id]);
-    return pack as PackType[];
-}
-
 export default {
     allPacks,
-    findPack,
-}
+};
