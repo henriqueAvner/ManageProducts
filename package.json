@@ -1,0 +1,19 @@
+{
+  "name": "shopper-test",
+  "version": "1.0.0",
+  "lockfileVersion": 3,
+  "requires": true,
+  "author": "",
+  "description": "Full-stack project Shopper app",
+  "keywords": [],
+  "license": "ISC",
+  "packages": {},
+  "scripts": {
+    "start-backend": "cd shopper-app-backend && npm install && npm run db && npm run dev &",
+    "start-frontend": "cd shopper-app-frontend && npm install && npm start",
+    "start": "npm run start-backend && npm run start-frontend"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

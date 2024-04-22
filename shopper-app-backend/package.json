@@ -6,6 +6,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "dev": "nodemon --watch \"./src/**\" --ext \"ts,js\" --ignore \"tests/**/*.test.ts\" --exec \"ts-node src/server.ts\"",
+    "db": "mysql -u root -proot --database shopperDB -e \"source database.sql\"",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "build": "tsc",
     "test": "jest --watchAll --no-cache --coverage"
@@ -43,12 +44,9 @@
     "csv-parser": "^3.0.0",
     "express": "^4.17.1",
     "express-async-errors": "3.1.1",
-    "fast-csv": "^5.0.1",
     "multer": "^1.4.5-lts.1",
     "mysql2": "2.3.0",
     "nodemon": "2.0.14",
-    "papaparse": "^5.4.1",
-    "pg": "^8.11.5",
     "ts-node": "^10.9.2",
     "zod": "^3.22.4"
   }
