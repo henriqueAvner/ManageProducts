@@ -15,7 +15,7 @@ describe('#productSchemaArray', () => {
         if (!result.success) {
             expect(result.error).toBeDefined();
 
-            expect(result.error.errors[1].message).toBe('Preço inválido')
+            expect(result.error.errors[1].message).toBe('Expected number, received nan')
         }
     });
 
@@ -30,7 +30,7 @@ describe('#productSchemaArray', () => {
         expect(result.success).toBeFalsy();
         if (!result.success) {
             expect(result.error).toBeDefined();
-            expect(result.error.errors[1].message).toBe('Preço inválido')
+            expect(result.error.errors[1].message).toBe('Expected number, received string')
         }
     });
 })

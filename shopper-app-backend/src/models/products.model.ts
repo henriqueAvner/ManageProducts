@@ -6,11 +6,6 @@ async function allProducts(): Promise<DbProduct[]> {
     return products as DbProduct[];
 }
 
-async function findProduct(code: number) {
-    const [product] = await connection.execute('SELECT * FROM products WHERE code = ?', [code]);
-    return product;
-}
-
 async function updateProduct(code: number, newPrice: number) {
     const [updated] = await connection.execute('UPDATE products SET sales_price = ? WHERE code = ?', [newPrice, code]);
     return updated;
@@ -19,6 +14,5 @@ async function updateProduct(code: number, newPrice: number) {
 
 export default {
     allProducts,
-    findProduct,
     updateProduct,
 }
