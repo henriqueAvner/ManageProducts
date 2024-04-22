@@ -136,7 +136,7 @@ export const validateCsvService = async (csvFile: string) => {
                 if (productInPack === undefined) return;
                 const packItem = allPacks.find(item => item.product_id === productInPack.code);
                 if (packItem) {
-                    // Calcula o novo preço do produto com base no aumento aplicado ao preço antigo do produto
+                    // Calcula o novo preço do produto com base no aumento aplicado ao preço antigo do produto.
                     const newPrice = parseFloat((Number(productInPack.sales_price) + Number(increasePerProduct)).toFixed(2));
                     result.push({
                         status: 'success',
@@ -157,4 +157,3 @@ export const validateCsvService = async (csvFile: string) => {
     }
     return [result, resultPack];
 }
-
