@@ -12,6 +12,7 @@ Primeiro, clone o repositório para a sua máquina usando o link gerado aqui.
 
 
   > :pushpin: Instale as dependências com `npm install`
+> - :pushpin: Para rodar o projeto desta forma, obrigatoriamente você deve ter o `node.js` instalado em seu computador da versão 18 para cima.
   
   
   
@@ -23,7 +24,11 @@ Primeiro, clone o repositório para a sua máquina usando o link gerado aqui.
 ```bash
  npm run start
 ```
-- :pushpin: Para rodar o projeto desta forma, obrigatoriamente você deve ter o `node.js` instalado em seu computador da versão 18 para cima.
+- :pushpin: As variáveis de ambiente estão setadas nos arquivos `env-example` e `.env`, se preferir, utilize as próprias com o comando:
+
+     ```bash
+    env $(cat .env) npm run start
+    ```
 
 
 
