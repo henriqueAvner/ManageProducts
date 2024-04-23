@@ -72,10 +72,10 @@ Exemplo de dados:
 ![image](https://github.com/henriqueAvner/shopper-test/assets/133919307/d647aa31-e62e-43d7-bde7-4cc8190d99ed)
 
 
-5. Caso não tenham sido validados, um erro para cada regra quebrada poderá ser lançado na tela, juntamente com os produtos que foram validados:<br/><br/>
+5. Caso não tenham sido validados, um erro para cada regra quebrada poderá ser lançado na tela, juntamente com os produtos e pacotes que foram validados:<br/><br/>
 ![image](https://github.com/henriqueAvner/shopper-test/assets/133919307/eaa10afe-9680-4480-9869-32188609ec80)
 
-8. Caso todas as validações estejam corretas, o botão para atualizar será liberado.Obs.: Além dos produtos, os packs que possuem esses produtos também aparecerão, pois eles também terão seus preços ajustados. Avalie se o preço que você passou, está de acordo com o preço que deseja para o pack também:<br/><br/>
+8. Caso todas as validações estejam corretas, os produtos e os packs correspondentes aparecerão, e o botão para atualizar será liberado.<br/><br/>
    ![image](https://github.com/henriqueAvner/shopper-test/assets/133919307/480c5782-307f-4e4e-a710-3a91fef70759)
 
 10. Ao clicar no botão, o que fora enviado no CSV será alterado no banco de dados, e a página inicial voltará:<br/><br/>
