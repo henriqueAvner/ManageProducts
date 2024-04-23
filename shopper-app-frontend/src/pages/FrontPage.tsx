@@ -1,4 +1,4 @@
-import { MainContent } from './Components/Corpo/MainContent';
+import { MainContent } from './Components/Body/MainContent';
 import { Header } from './Components/Header/Header';
 import styles from './frontPage.module.css';
 

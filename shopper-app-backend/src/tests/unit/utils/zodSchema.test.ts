@@ -1,6 +1,4 @@
 import { productSchemaArray } from "../../../utils/zodSchema";
-
-
 describe('#productSchemaArray', () => {
 
     it('Shoud return error with NaN on new_price', async () => {
