@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Tabela } from './Tabela';
+import { Tabela } from './Table/Tabela';
 import styles from './mainContent.module.css';
 import {
   Product,
@@ -74,15 +74,15 @@ export function MainContent() {
     }
   }
   async function handleUpdate() {
-    if (!file) return; // Certifique-se de que o arquivo está disponível
+    if (!file) return;
 
     const formData = new FormData();
-    formData.append('file', file); // Adicione o arquivo ao formData
+    formData.append('file', file);
 
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/updatecsv`, {
         method: 'PUT',
-        body: formData, // Use formData para enviar o arquivo
+        body: formData,
       });
 
       if (!response.ok) {
@@ -91,24 +91,20 @@ export function MainContent() {
 
       const data = await response.json();
 
-      // Verifica se a resposta é de sucesso
       if (data.status === 'SUCCESS') {
-        // Limpa os erros e atualiza a mensagem de sucesso
         setMistake([]);
         setIsValid(true);
-        // Aqui você pode adicionar uma lógica para atualizar a UI com a mensagem de sucesso
-        // Por exemplo, mostrar um modal ou uma notificação
+
         setUpdateMessage(data.data.message);
         setTimeout(() => {
           window.location.reload();
         }, 1000);
       } else {
-        // Caso contrário, trata-se como um erro
         throw new Error(data.data.message || 'Erro desconhecido');
       }
     } catch (error) {
       console.error('Erro ao atualizar os produtos:', error);
-      // Atualiza o estado com a mensagem de erro
+
       setMistake([(error as { message: string }).message]);
     }
   }

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Pack, Product, ProductOrPack } from '../../../utils/Types/ResponseType';
+import { Pack, Product, ProductOrPack } from '../../../../utils/Types/ResponseType';
 import styles from './tabela.module.css';
 
 function extractItemDetails(item: Product | Pack) {

@@ -1,8 +1,6 @@
 import connection from '../../../db';
 import { PackType } from '../../../helpers/Types';
 import packModel from '../../../models/pack.model';
-
-// Mock the entire 'db' module
 jest.mock('../../../db');
 
 const mockExecute = connection.execute as jest.Mock;

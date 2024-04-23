@@ -2,7 +2,6 @@ import csvReader from "../helpers/csvReader";
 import productsModel from '../models/products.model';
 import { NewValueType, DbProduct, PackType, Product } from "../helpers/Types";
 import packModel from "../models/pack.model";
-import { processPackAsProduct } from "./functions/packInRequisition";
 
 export const validateCsvService = async (csvFile: string) => {
     const csvFormater = csvReader(csvFile);
@@ -10,7 +9,6 @@ export const validateCsvService = async (csvFile: string) => {
     const allPacks = await packModel.allPacks();
 
     const processedProducts = new Set<number>();
-    const processedPacks = new Set<number>();
 
     const result: {
         status: string, error?: string, product?: NewValueType, pack?: NewValueType
@@ -20,20 +18,18 @@ export const validateCsvService = async (csvFile: string) => {
         status: string, error?: string, product?: NewValueType, pack?: NewValueType
     }[] = [];
     for await (const product of csvFormater) {
-        // Procurando os produtos dentro do banco de dados
         const findProduct = allProducts.find((item: DbProduct) => item.code === product.product_code);
 
-        // Se não achar, retorna um erro
         if (!findProduct) {
             result.push({ status: 'error', error: `O produto ${product.product_code} não foi encontrado!` });
             continue;
         }
-        // Se o novo preço for menor que o preço de custo, retorna um erro
+
         if (product.new_price < findProduct.cost_price) {
-            result.push({ status: 'error', error: `Produto ${product.product_code}: Preço de custo inválido` });
+            result.push({ status: 'error', error: `Produto ${product.product_code}: price de custo inválido` });
             continue;
         }
-        // Se o novo preço for maior que o preço de venda, retorna um erro
+
         const productCost = findProduct.sales_price;
         const maxPrice = productCost * 1.1;
         const minPrice = productCost * 0.9;
@@ -42,30 +38,41 @@ export const validateCsvService = async (csvFile: string) => {
             continue;
         }
 
-        //se for enviado um produto que pertennce a um pacote na requisição, mas o pacote nao foi enviado, retorna um erro:
-        const produtoqueestaemumpacote = allPacks.find((item: PackType) => item.product_id === product.product_code);
-        // console.log(produtoqueestaemumpacote);
-        const algumpacoteenviado = csvFormater.find((item: Product) => item.product_code === produtoqueestaemumpacote?.pack_id);
+        const ProductInPack = allPacks.find((item: PackType) => item.product_id === product.product_code);
+        const findPackInReq = csvFormater.find((item: Product) => item.product_code === ProductInPack?.pack_id);
 
-        //verificamos se o produto da requisição está em um pacote, e se o pacote que ele está foi enviado na requisição
-        if (produtoqueestaemumpacote && !algumpacoteenviado) {
+        if (ProductInPack && !findPackInReq) {
             result.push({ status: 'error', error: `O produto ${product.product_code} pertence a um pacote e o pacote não foi enviado!` });
             continue;
         }
 
-        //se for enviado um pacote na requisição, mas nao foi enviado nenhum produto que pertence a ele, retorna um erro:
-        const pacoteenviado = allPacks.find((item: PackType) => item.pack_id === product.product_code);
-        const algumprodutdodopacoteenviado = csvFormater.find((item: Product) => item.product_code === pacoteenviado?.product_id);
-        // console.log(algumprodutdodopacoteenviado);
-        if (pacoteenviado && !algumprodutdodopacoteenviado) {
+        const findPackDB = allPacks.find((item: PackType) => item.pack_id === product.product_code);
+        const productInPack = csvFormater.find((item: Product) => item.product_code === findPackDB?.product_id);
+
+        if (findPackDB && !productInPack) {
             result.push({ status: 'error', error: `O pacote ${product.product_code} foi enviado, mas não há nenhum produto dele na requisição!` });
             continue;
         }
 
+        if (ProductInPack && findPackInReq) {
 
+            const otherProductInPack = allPacks.filter((pack: PackType) => pack.pack_id === findPackInReq?.product_code && pack.product_id !== ProductInPack?.product_id);
 
+            const otherProductPrice = otherProductInPack.map((item: PackType) => {
+                return allProducts.find((product: DbProduct) => product.code === item.product_id)?.sales_price;
+            })
 
+            const price = Number(otherProductPrice.reduce((acc, item) => (acc ?? 0) + (item ?? 0), 0));
+            const packPrice = Number(findPackInReq?.new_price);
+            const qtyInPack = Number(ProductInPack?.qty);
+            const produtoprice = Number((product.new_price * qtyInPack));
+            const secondPPrice = price * qtyInPack;
 
+            if (Number((packPrice - produtoprice).toFixed(2)) !== secondPPrice) {
+                result.push({ status: 'error', error: `O price do pacote ${product.product_code} não corresponde ao price dos produtos que o compõem` });
+                continue;
+            }
+        }
         if (product.product_code < 999) {
             processedProducts.add(product.product_code);
             result.push({
@@ -73,7 +80,6 @@ export const validateCsvService = async (csvFile: string) => {
                 product: {
                     code: findProduct.code,
                     name: findProduct.name,
-                    // quantity: packOfProductReq?.qty,
                     cost_price: findProduct.cost_price,
                     sales_price: findProduct.sales_price,
                     new_price: product.new_price,
@@ -92,7 +98,5 @@ export const validateCsvService = async (csvFile: string) => {
             });
         }
     }
-
-
-    return [result, resultPack];
+    return resultPack.length === 0 ? [result] : [result, resultPack];
 }

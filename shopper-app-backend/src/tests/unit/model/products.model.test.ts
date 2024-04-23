@@ -1,7 +1,5 @@
 import productsModel from '../../../models/products.model';
 import connection from '../../../db';
-
-// Mock the entire 'db' module
 jest.mock('../../../db');
 
 const mockExecute = connection.execute as jest.Mock;
