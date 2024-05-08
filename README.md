@@ -1,4 +1,4 @@
-![image](https://github.com/henriqueAvner/shopper-test/assets/133919307/fee30b29-4e25-452d-9cdd-ff3263f997c2)
+
 # Orientações
 
 ## 1. Clone o Repositório
