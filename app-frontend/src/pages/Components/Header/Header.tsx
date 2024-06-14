@@ -2,9 +2,9 @@ import styles from './header.module.css';
 
 export function Header() {
   return (
-    <header className={ styles.title }>
+    <header className={styles.title}>
       <h1>
-        Shopper - Atualização de preços
+        Manage Products- Atualização de preços
       </h1>
     </header>
   );
